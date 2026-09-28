@@ -1,0 +1,27 @@
+sequenceDiagram
+  actor U as Usuario
+  participant N as Navegador<br/>(login.html + login.js)
+  participant S as Servidor Web<br/>(Express · server.js)
+  participant D as db.js<br/>(mysql2)
+  participant BD as MySQL<br/>(tabla usuarios)
+  U->>N: Escribe usuario y password, clic en "Entrar"
+  N->>N: validarUsuario() y validarPassword()
+  alt Datos inválidos
+    N-->>U: Muestra mensajes de error (no se envía)
+  else Datos válidos
+    N->>S: POST /login (usuario, password)
+    S->>S: usuario = req.body.usuario<br/>password = req.body.password
+    S->>S: Valida formato con expresiones regulares
+    S->>D: buscarUsuario(usuario)
+    D->>BD: SELECT usuario, password, nombre<br/>FROM usuarios WHERE usuario = ?
+    BD-->>D: Registro (o vacío)
+    D-->>S: {usuario, password, nombre} | null
+    alt registro existe y registro.password === password
+      S->>S: Crea cookie firmada de sesión
+      S-->>N: 200 · paginaExito(nombre)
+      N-->>U: "Autenticación correcta"
+    else no existe o password distinto
+      S-->>N: 401 · paginaError()
+      N-->>U: "Autenticación errónea"
+    end
+  end

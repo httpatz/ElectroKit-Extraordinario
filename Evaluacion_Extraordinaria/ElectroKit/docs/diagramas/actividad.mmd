@@ -1,0 +1,19 @@
+flowchart TD
+  I((Inicio)) --> A[Mostrar login.html]
+  A --> B[/Usuario captura usuario y password/]
+  B --> C{¿Formato válido<br/>en navegador?}
+  C -- No --> C1[Mostrar mensajes de error] --> B
+  C -- Sí --> D[Enviar POST /login]
+  D --> E[Backend asigna variables<br/>usuario y password]
+  E --> F{¿Formato válido<br/>en servidor?}
+  F -- No --> X[Responder página<br/>Autenticación errónea]
+  F -- Sí --> G[(Consultar tabla usuarios<br/>WHERE usuario = ?)]
+  G --> H{¿Existe el usuario?}
+  H -- No --> X
+  H -- Sí --> J{¿password BD ==<br/>password enviado?}
+  J -- No --> X
+  J -- Sí --> K[Crear cookie de sesión]
+  K --> L[Responder página<br/>Autenticación correcta]
+  L --> M[Ir al catálogo]
+  X -- "Volver a intentar" --> A
+  M --> Z((Fin))

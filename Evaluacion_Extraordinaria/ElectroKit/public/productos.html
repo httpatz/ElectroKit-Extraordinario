@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo — ElectroKit</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header class="barra">
+    <div class="barra-marca">
+      <img src="img/logo.svg" alt="" width="36" height="36">
+      <span>ElectroKit</span>
+    </div>
+    <div class="barra-usuario">
+      <span id="saludo">Hola</span>
+      <a href="/logout" class="boton-mini">Cerrar sesión</a>
+    </div>
+  </header>
+
+  <main class="contenedor">
+    <h1 class="titulo-seccion">Catálogo de productos</h1>
+    <p class="descripcion-seccion">Haz clic en una miniatura para intercambiarla con la imagen grande. Usa “Comentarios” para ver y agregar opiniones.</p>
+
+    <!-- Tabla HTML de 3 columnas x 3 filas: una celda por producto -->
+    <table class="tabla-productos" id="tablaProductos" aria-label="Catálogo de productos">
+      <tbody></tbody>
+    </table>
+  </main>
+
+  <footer class="pie">ElectroKit · Proyecto escolar · UPIITA–IPN</footer>
+
+  <!-- Plantilla de una celda de producto -->
+  <template id="plantillaProducto">
+    <article class="producto">
+      <h2 class="p-nombre"></h2>
+      <div class="galeria">
+        <img class="img-grande" alt="">
+        <div class="miniaturas"></div>
+      </div>
+      <p class="p-descripcion"></p>
+      <p class="p-envio"><span class="etiqueta">Envío estimado:</span> <time></time></p>
+      <div class="p-calificacion"><span class="estrellas"></span><span class="valor"></span></div>
+      <button type="button" class="boton-comentarios" aria-expanded="false">Comentarios (<span class="num">0</span>)</button>
+      <section class="comentarios" hidden>
+        <ul class="lista-comentarios"></ul>
+        <form class="form-comentario">
+          <label>Tu calificación
+            <select name="estrellas">
+              <option value="5">5 ★</option><option value="4">4 ★</option><option value="3">3 ★</option>
+              <option value="2">2 ★</option><option value="1">1 ★</option>
+            </select>
+          </label>
+          <textarea name="texto" rows="2" maxlength="300" placeholder="Escribe tu comentario…"></textarea>
+          <small class="mensaje-error"></small>
+          <button type="submit" class="boton">Agregar comentario</button>
+        </form>
+      </section>
+    </article>
+  </template>
+
+  <script src="js/productos-data.js"></script>
+  <script src="js/productos.js"></script>
+</body>
+</html>

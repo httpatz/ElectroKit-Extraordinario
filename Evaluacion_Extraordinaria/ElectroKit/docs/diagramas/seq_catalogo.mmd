@@ -1,0 +1,22 @@
+sequenceDiagram
+  actor U as Usuario
+  participant N as Navegador<br/>(productos.js)
+  participant S as Servidor Web
+  participant L as localStorage
+  U->>N: Abre /productos.html
+  N->>S: GET /productos.html (cookie)
+  S->>S: requiereSesion()
+  S-->>N: HTML, CSS, JS, imágenes
+  N->>S: GET /api/sesion
+  S-->>N: {usuario, nombre}
+  N->>L: leerGuardados()
+  L-->>N: comentarios previos
+  N->>N: Construye tabla 3x3 (9 productos)
+  U->>N: Clic en miniatura
+  N->>N: Intercambia src de miniatura e imagen grande
+  U->>N: Clic en "Comentarios"
+  N-->>U: Lista de comentarios + formulario
+  U->>N: Escribe comentario y calificación, "Agregar"
+  N->>N: Valida texto (mín. 3 caracteres)
+  N->>L: guardar(idProducto, comentario)
+  N-->>U: Lista y estrellas actualizadas

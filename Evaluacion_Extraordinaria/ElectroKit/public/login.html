@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar sesión — ElectroKit</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body class="pagina-centro">
+  <main class="tarjeta login">
+    <div class="marca">
+      <img src="img/logo.svg" alt="ElectroKit" width="56" height="56">
+      <h1>ElectroKit</h1>
+      <p class="subtitulo">Tienda de electrónica</p>
+    </div>
+
+    <form id="formLogin" action="/login" method="POST" novalidate>
+      <div class="campo">
+        <label for="usuario">Usuario</label>
+        <input type="text" id="usuario" name="usuario" maxlength="20" autocomplete="username" placeholder="ej. atz">
+        <small class="mensaje-error" id="errorUsuario"></small>
+      </div>
+
+      <div class="campo">
+        <label for="password">Contraseña</label>
+        <div class="con-boton">
+          <input type="password" id="password" name="password" maxlength="20" autocomplete="current-password" placeholder="••••••">
+          <button type="button" id="verPassword" class="boton-mini" aria-label="Mostrar contraseña">Ver</button>
+        </div>
+        <small class="mensaje-error" id="errorPassword"></small>
+      </div>
+
+      <button type="submit" class="boton ancho">Entrar</button>
+    </form>
+
+    <p class="nota">Usuario: 3–20 caracteres (letras, números o _). Contraseña: 6–20 caracteres con al menos una letra y un número.</p>
+  </main>
+
+  <script src="js/login.js"></script>
+</body>
+</html>

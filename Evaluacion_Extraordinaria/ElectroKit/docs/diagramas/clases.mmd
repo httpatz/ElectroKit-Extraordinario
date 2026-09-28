@@ -1,0 +1,80 @@
+classDiagram
+direction TB
+namespace Backend {
+  class Servidor {
+    <<server.js>>
+    -app : Express
+    -PUERTO : number
+    -SECRETO : string
+    -REGEX_USUARIO : RegExp
+    -REGEX_PASSWORD : RegExp
+    +requiereSesion(req, res, next) void
+    +postLogin(req, res) Promise~void~
+    +getSesion(req, res) void
+    +logout(req, res) void
+  }
+  class BaseDatos {
+    <<db.js>>
+    -pool : Pool
+    +buscarUsuario(usuario : string) Promise~Usuario~
+  }
+  class Vistas {
+    <<vistas.js>>
+    -escapar(texto) string
+    -plantilla(titulo, cuerpo) string
+    +paginaExito(nombre, usuario) string
+    +paginaError(motivo) string
+  }
+  class Usuario {
+    <<entidad / tabla usuarios>>
+    +id_usuario : int
+    +usuario : string
+    +password : string
+    +nombre : string
+    +fecha_registro : Date
+  }
+}
+namespace Frontend {
+  class ValidadorLogin {
+    <<login.js>>
+    -REGEX_USUARIO : RegExp
+    -REGEX_PASSWORD : RegExp
+    +validarUsuario() boolean
+    +validarPassword() boolean
+    -mostrar(input, contenedor, msg) void
+  }
+  class Catalogo {
+    <<productos.js>>
+    -COLUMNAS : int = 3
+    -usuarioActual : string
+    +crearProducto(p : Producto) Node
+    +estrellas(n, tam) Fragment
+    +fechaEnvio(dias) Date
+    +calificacionPromedio(p) int
+    -leerGuardados() object
+    -guardar(id, comentario) void
+  }
+  class Producto {
+    <<productos-data.js>>
+    +id : string
+    +nombre : string
+    +descripcion : string
+    +diasEnvio : int
+    +calificacion : int
+    +imagenes : string[6]
+    +comentarios : Comentario[]
+  }
+  class Comentario {
+    +usuario : string
+    +estrellas : int
+    +texto : string
+    +fecha : string
+  }
+}
+Servidor ..> BaseDatos : usa
+Servidor ..> Vistas : usa
+BaseDatos ..> Usuario : consulta
+Catalogo "1" o-- "9" Producto : muestra
+Producto "1" *-- "0..*" Comentario : tiene
+ValidadorLogin ..> Servidor : POST /login
+Catalogo ..> Servidor : GET /api/sesion

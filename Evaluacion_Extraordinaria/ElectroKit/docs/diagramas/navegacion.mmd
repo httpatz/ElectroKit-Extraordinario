@@ -1,0 +1,18 @@
+flowchart TB
+  R(["/ (raíz)"]) -->|redirección| L["login.html<br/>Formulario de acceso"]
+  L -->|datos inválidos| L
+  L -->|POST /login| V{Validación<br/>backend}
+  V -->|correcta| OK["Página<br/>Autenticación correcta"]
+  V -->|errónea| ER["Página<br/>Autenticación errónea"]
+  ER -->|Volver a intentar| L
+  OK -->|Ir al catálogo| C["productos.html<br/>Catálogo 3x3"]
+  C -->|clic miniatura| C
+  C -->|Comentarios| CM["Panel de comentarios<br/>(misma página)"]
+  CM -->|Agregar comentario| CM
+  CM -->|ocultar| C
+  C -->|Cerrar sesión<br/>GET /logout| L
+  X(["Acceso directo a<br/>productos.html sin sesión"]) -.->|302 redirección| L
+  classDef pag fill:#e3f4f7,stroke:#0b7285,stroke-width:2px
+  classDef res fill:#fff4e0,stroke:#f59f00,stroke-width:2px
+  class L,C,CM pag
+  class OK,ER res

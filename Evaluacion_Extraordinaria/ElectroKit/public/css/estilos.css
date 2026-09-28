@@ -1,0 +1,199 @@
+/* estilos.css — ElectroKit */
+:root {
+  --primario: #0b7285;
+  --primario-osc: #085565;
+  --acento: #f59f00;
+  --fondo: #eef3f5;
+  --tarjeta: #ffffff;
+  --texto: #1f2a30;
+  --suave: #5c6b73;
+  --borde: #d5dfe3;
+  --error: #c92a2a;
+  --ok: #2b8a3e;
+  --radio: 12px;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  background: var(--fondo);
+  color: var(--texto);
+  line-height: 1.45;
+}
+.pagina-centro {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: linear-gradient(135deg, #0b7285 0%, #0c3b4a 100%);
+}
+
+/* ---------- Tarjetas (login / resultado) ---------- */
+.tarjeta {
+  background: var(--tarjeta);
+  border-radius: var(--radio);
+  box-shadow: 0 12px 40px rgba(0,0,0,.25);
+  padding: 32px 28px;
+  width: 100%;
+  max-width: 380px;
+}
+.marca { text-align: center; margin-bottom: 20px; }
+.marca h1 { margin: 8px 0 0; font-size: 1.6rem; color: var(--primario-osc); }
+.subtitulo { margin: 2px 0 0; color: var(--suave); }
+
+.campo { margin-bottom: 16px; }
+.campo label { display: block; font-weight: 600; margin-bottom: 6px; }
+input[type=text], input[type=password], textarea, select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid var(--borde);
+  border-radius: 8px;
+  font: inherit;
+  background: #fff;
+}
+input:focus, textarea:focus, select:focus { outline: none; border-color: var(--primario); box-shadow: 0 0 0 3px rgba(11,114,133,.15); }
+input.invalido { border-color: var(--error); }
+input.valido { border-color: var(--ok); }
+.con-boton { display: flex; gap: 6px; }
+.mensaje-error { display: block; min-height: 1.1em; color: var(--error); font-size: .82rem; margin-top: 4px; }
+.nota { font-size: .78rem; color: var(--suave); margin: 16px 0 0; text-align: center; }
+
+.boton {
+  display: inline-block;
+  background: var(--primario);
+  color: #fff;
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+}
+.boton:hover { background: var(--primario-osc); }
+.boton.ancho { width: 100%; }
+.boton-mini {
+  background: #fff;
+  border: 1.5px solid var(--borde);
+  color: var(--texto);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font: inherit;
+  font-size: .85rem;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* ---------- Páginas de resultado ---------- */
+.resultado { text-align: center; }
+.resultado h1 { margin: 8px 0 12px; font-size: 1.5rem; }
+.icono-resultado {
+  width: 72px; height: 72px; margin: 0 auto;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-size: 2.2rem; color: #fff;
+}
+.exito .icono-resultado { background: var(--ok); }
+.exito h1 { color: var(--ok); }
+.error .icono-resultado { background: var(--error); }
+.error h1 { color: var(--error); }
+.resultado .boton { margin-top: 12px; }
+
+/* ---------- Catálogo ---------- */
+.barra {
+  position: sticky; top: 0; z-index: 5;
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  background: var(--primario-osc); color: #fff;
+  padding: 10px 16px;
+}
+.barra-marca { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 1.2rem; }
+.barra-usuario { display: flex; align-items: center; gap: 12px; }
+.contenedor { max-width: 1200px; margin: 0 auto; padding: 16px; }
+.titulo-seccion { margin: 8px 0 4px; }
+.descripcion-seccion { margin: 0 0 16px; color: var(--suave); }
+
+.tabla-productos {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 14px;
+  table-layout: fixed;
+}
+.tabla-productos td {
+  vertical-align: top;
+  background: var(--tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 14px;
+  width: 33.33%;
+}
+.producto h2 { font-size: 1.1rem; margin: 0 0 10px; color: var(--primario-osc); }
+
+.galeria .img-grande {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--borde);
+  display: block;
+}
+.img-grande.animar { animation: aparecer .25s ease; }
+@keyframes aparecer { from { opacity: .3; } to { opacity: 1; } }
+.miniaturas {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  margin-top: 6px;
+}
+.miniatura {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: border-color .15s, transform .15s;
+}
+.miniatura:hover, .miniatura:focus { border-color: var(--acento); transform: translateY(-2px); outline: none; }
+
+.p-descripcion { font-size: .9rem; margin: 10px 0 6px; }
+.p-envio { font-size: .88rem; margin: 0 0 6px; }
+.etiqueta { font-weight: 600; }
+.p-calificacion { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+.estrellas { display: inline-flex; gap: 2px; }
+.valor { font-size: .82rem; color: var(--suave); }
+
+.boton-comentarios {
+  width: 100%;
+  background: #fff4e0;
+  border: 1.5px solid var(--acento);
+  color: #8a5a00;
+  border-radius: 8px;
+  padding: 8px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.boton-comentarios[aria-expanded=true] { background: var(--acento); color: #fff; }
+
+.comentarios { margin-top: 10px; }
+.lista-comentarios { list-style: none; padding: 0; margin: 0 0 10px; max-height: 220px; overflow-y: auto; }
+.lista-comentarios li { border-bottom: 1px dashed var(--borde); padding: 8px 0; font-size: .86rem; }
+.lista-comentarios li p { margin: 4px 0 0; }
+.lista-comentarios .vacio { color: var(--suave); font-style: italic; }
+.c-cabecera { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.c-estrellas { display: inline-flex; }
+.c-fecha { margin-left: auto; color: var(--suave); font-size: .78rem; }
+.form-comentario { display: grid; gap: 6px; font-size: .86rem; }
+.form-comentario label { display: grid; gap: 4px; font-weight: 600; }
+
+.pie { text-align: center; color: var(--suave); font-size: .82rem; padding: 20px 16px 28px; }
+
+/* Responsivo: en pantallas chicas cada celda ocupa todo el ancho */
+@media (max-width: 900px) {
+  .tabla-productos, .tabla-productos tbody, .tabla-productos tr, .tabla-productos td { display: block; width: 100%; }
+  .tabla-productos { border-spacing: 0; }
+  .tabla-productos td { margin-bottom: 14px; }
+  .barra-usuario #saludo { display: none; }
+}
